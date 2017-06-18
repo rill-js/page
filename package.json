@@ -1,0 +1,52 @@
+{
+  "name": "@rill/page",
+  "description": "Full page <head> management for Rill.",
+  "version": "1.0.0",
+  "author": "Dylan Piercey <pierceydylan@gmail.com>",
+  "browser": "client/index.js",
+  "bugs": "https://github.com/rill-js/page/issues",
+  "dependencies": {
+    "set-head": "^1.1.0"
+  },
+  "devDependencies": {
+    "jsdom": "^11.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^3.4.2",
+    "rill": "^5.0.3",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.2",
+    "supertest": "^3.0.0"
+  },
+  "homepage": "https://github.com/rill-js/page",
+  "keywords": [
+    "document",
+    "head",
+    "html",
+    "isomorphic",
+    "page",
+    "react",
+    "render",
+    "rill",
+    "universal"
+  ],
+  "license": "MIT",
+  "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rill-js/page"
+  },
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "test": "npm run lint && mocha -r jsdom-global/register ./test/**/*.test.js"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach"
+    ]
+  }
+}
