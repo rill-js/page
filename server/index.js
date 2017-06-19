@@ -1,9 +1,10 @@
 'use strict'
 
 var Head = require('set-head')
+var TAGS = ['title', 'base', 'script', 'link', 'meta']
 
 // Add middleware for each type of tag.
-;['title', 'base', 'script', 'link', 'meta'].forEach(function (tag) {
+TAGS.forEach(function (tag) {
   exports[tag] = function (attrs) {
     // If we are on the first call then we start a chainable middleware.
     if (this === exports) {
