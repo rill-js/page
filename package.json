@@ -6,7 +6,7 @@
   "browser": "client/index.js",
   "bugs": "https://github.com/rill-js/page/issues",
   "dependencies": {
-    "set-head": "^1.1.0"
+    "set-head": "^1.1.1"
   },
   "devDependencies": {
     "jsdom": "^11.0.0",
