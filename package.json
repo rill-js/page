@@ -6,6 +6,7 @@
   "browser": "client/index.js",
   "bugs": "https://github.com/rill-js/page/issues",
   "dependencies": {
+    "combined-stream": "^1.0.5",
     "set-head": "^1.2.0"
   },
   "devDependencies": {

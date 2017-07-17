@@ -1,5 +1,7 @@
 'use strict'
 
+var fs = require('fs')
+var path = require('path')
 var assert = require('assert')
 var agent = require('supertest')
 var Rill = require('rill')
@@ -24,7 +26,32 @@ describe('Rill/Document', function () {
       .get('/')
       .expect(200)
       .expect(function (res) {
-        assert.equal(res.text, '<!DOCTYPE html><html><head><title>hi</title><meta charset="utf8"><script src="index.js"></script></head><body><div>Hello world</div></body>')
+        assert.equal(res.text, '<!DOCTYPE html><html><head><title>hi</title><meta charset="utf8"><script src="index.js"></script></head><body><div>Hello world</div></body></html>')
+      })
+      .expect('content-type', 'text/html; charset=UTF-8')
+      .end(done)
+  })
+
+  it('should accept streams on the server', function (done) {
+    var serverDocument = require('../server')
+    var request = agent(
+      Rill()
+        .use(serverDocument
+          .title('hi')
+          .meta({ charset: 'utf8' })
+        )
+        .get('/', serverDocument.script({ src: 'index.js' }), function (ctx, next) {
+          ctx.res.set('Content-Type', 'text/html; charset=UTF-8')
+          ctx.res.body = fs.createReadStream(path.join(__dirname, './example.html'))
+        })
+        .listen()
+    )
+
+    request
+      .get('/')
+      .expect(200)
+      .expect(function (res) {
+        assert.equal(res.text, '<!DOCTYPE html><html><head><title>hi</title><meta charset="utf8"><script src="index.js"></script></head><body><div>Some html</div>\n</body></html>')
       })
       .expect('content-type', 'text/html; charset=UTF-8')
       .end(done)
