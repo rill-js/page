@@ -1,7 +1,7 @@
 'use strict'
 
 var Head = require('set-head')
-var combinedStream = require('combined-stream')
+var combinedStream = require('combined-stream2')
 
 // Add middleware for each type of tag.
 Head.TAGS.forEach(function (tag) {
@@ -23,10 +23,14 @@ Head.TAGS.forEach(function (tag) {
         return next().then(function () {
           var contentType = res.get('Content-Type')
           if (!contentType || contentType.slice(0, 9) !== 'text/html') return
-          res.body = combinedStream.create()
-            .append('<!DOCTYPE html><html><head>' + page.renderToString() + '</head><body>')
-            .append(res.body)
-            .append('</body></html>')
+          var body = res.body
+          if (typeof res.body === 'string') body = Buffer.from(body)
+
+          var output = combinedStream.create()
+          output.append(Buffer.from('<!DOCTYPE html><html><head>' + page.renderToString() + '</head><body>'))
+          output.append(body)
+          output.append(Buffer.from('</body></html>'))
+          res.body = output
         })
       }
 
