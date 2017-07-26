@@ -42,7 +42,7 @@ npm install @rill/page
 const app = require('rill')()
 const page = require('@rill/page')
 const React = require('react')
-const renderer = require('@rill/page')
+const renderer = require('@rill/react')
 
 // Set default <head> tags (can override later).
 // Must come before render middleware.

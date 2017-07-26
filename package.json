@@ -13,7 +13,7 @@
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^3.4.2",
-    "rill": "^5.0.5",
+    "rill": "^5.0.6",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "supertest": "^3.0.0"
