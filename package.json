@@ -6,14 +6,14 @@
   "browser": "client/index.js",
   "bugs": "https://github.com/rill-js/page/issues",
   "dependencies": {
-    "combined-stream2": "^1.1.2",
+    "combine-streams": "^1.0.0",
     "set-head": "^1.2.0"
   },
   "devDependencies": {
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
-    "mocha": "^3.4.2",
-    "rill": "^5.0.6",
+    "mocha": "^3.5.0",
+    "rill": "^5.0.14",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "supertest": "^3.0.0"

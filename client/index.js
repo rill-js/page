@@ -11,11 +11,12 @@ Head.TAGS.forEach(function (tag) {
         var res = ctx.res
         var first = !ctx.page
         var page = ctx.page = ctx.page || new Head()
-        var tags = tagMiddleware._tags
+        var calls = tagMiddleware._calls
 
-        for (var i = 0, len = tags.length, tag; i < len; i++) {
-          tag = tags[i]
-          page[tag[0]](tag[1])
+        for (var i = 0, len = calls.length, method, args; i < len; i += 2) {
+          method = calls[i]
+          args = calls[i + 1]
+          page[method](args)
         }
 
         if (!first) return next()
@@ -26,12 +27,12 @@ Head.TAGS.forEach(function (tag) {
         })
       }
 
-      tagMiddleware._tags = [[tag, attrs]]
+      tagMiddleware._calls = [tag, attrs]
       return Object.assign(tagMiddleware, exports)
     }
 
-    // Otherwise we just add more tags.
-    this._tags.push([tag, attrs])
+    // Otherwise we just add more calls.
+    this._calls.push(tag, attrs)
     return this
   }
 })

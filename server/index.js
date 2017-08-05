@@ -1,7 +1,7 @@
 'use strict'
 
 var Head = require('set-head')
-var combinedStream = require('combined-stream2')
+var combineStreams = require('combine-streams')
 
 // Add middleware for each type of tag.
 Head.TAGS.forEach(function (tag) {
@@ -12,34 +12,32 @@ Head.TAGS.forEach(function (tag) {
         var res = ctx.res
         var first = !ctx.page
         var page = ctx.page = ctx.page || new Head()
-        var tags = tagMiddleware._tags
+        var calls = tagMiddleware._calls
 
-        for (var i = 0, len = tags.length, tag; i < len; i++) {
-          tag = tags[i]
-          page[tag[0]](tag[1])
+        for (var i = 0, len = calls.length, method, args; i < len; i += 2) {
+          method = calls[i]
+          args = calls[i + 1]
+          page[method](args)
         }
 
         if (!first) return next()
         return next().then(function () {
           var contentType = res.get('Content-Type')
           if (!contentType || contentType.slice(0, 9) !== 'text/html') return
-          var body = res.body
-          if (typeof res.body === 'string') body = Buffer.from(body)
-
-          var output = combinedStream.create()
-          output.append(Buffer.from('<!DOCTYPE html><html><head>' + page.renderToString() + '</head><body>'))
-          output.append(body)
-          output.append(Buffer.from('</body></html>'))
-          res.body = output
+          res.body = combineStreams()
+            .append('<!DOCTYPE html><html><head>' + page.renderToString() + '</head><body>')
+            .append(res.body)
+            .append('</body></html>')
+            .append(null)
         })
       }
 
-      tagMiddleware._tags = [[tag, attrs]]
+      tagMiddleware._calls = [tag, attrs]
       return Object.assign(tagMiddleware, exports)
     }
 
-    // Otherwise we just add more tags.
-    this._tags.push([tag, attrs])
+    // Otherwise we just add more calls.
+    this._calls.push(tag, attrs)
     return this
   }
 })
