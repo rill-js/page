@@ -12,6 +12,8 @@ describe('Rill/Document', function () {
     var request = agent(
       Rill()
         .use(serverDocument
+          .html({ lang: 'en' })
+          .body({ class: 'page' })
           .title('hi')
           .meta({ charset: 'utf8' })
         )
@@ -26,7 +28,7 @@ describe('Rill/Document', function () {
       .get('/')
       .expect(200)
       .expect(function (res) {
-        assert.equal(res.text, '<!DOCTYPE html><html><head><title>hi</title><meta charset="utf8"><script src="index.js"></script></head><body><div>Hello world</div></body></html>')
+        assert.equal(res.text, '<!DOCTYPE html><html lang="en"><head><title>hi</title><meta charset="utf8"><script src="index.js"></script></head><body class="page"><div>Hello world</div></body></html>')
       })
       .expect('content-type', 'text/html; charset=UTF-8')
       .end(done)
@@ -62,6 +64,8 @@ describe('Rill/Document', function () {
     var request = agent(
       Rill()
         .use(clientDocument
+          .html({ lang: 'en' })
+          .body({ class: 'page' })
           .title('hi')
           .meta({ charset: 'utf8' })
         )
@@ -76,6 +80,8 @@ describe('Rill/Document', function () {
       .get('/')
       .expect(200)
       .expect(function () {
+        assert.equal(document.documentElement.getAttribute('lang'), 'en')
+        assert.equal(document.body.getAttribute('class'), 'page')
         assert.equal(document.head.innerHTML, '<title>hi</title><meta charset="utf8"><script src="index.js"></script>')
       })
       .expect('content-type', 'text/html; charset=UTF-8')

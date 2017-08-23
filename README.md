@@ -47,6 +47,8 @@ const renderer = require('@rill/react')
 // Set default <head> tags (can override later).
 // Must come before render middleware.
 app.get(page
+  .html({ lang: 'en' })
+  .body({ class: 'loading' })
   .meta({ charset: 'utf8' })
   .title('My App')
   .meta({ name: 'author', content: 'Dylan Piercey' })
@@ -54,18 +56,6 @@ app.get(page
   .link({ rel: 'stylesheet', href: 'index.css' })
   .script({ src: 'index.js', async: true })
 )
-
-app.get(({ page }, next) => {
-  page
-    .meta({ charset: 'utf8' })
-    .title('My App')
-    .meta({ name: 'author', content: 'Dylan Piercey' })
-    .meta({ name: 'descripton', content: 'It is very cool' })
-    .link({ rel: 'stylesheet', href: 'index.css' })
-    .script({ src: 'index.js', async: true })
-
-  return next()
-})
 
 // Setup React rendering in Rill as an example, but any will do.
 app.use(renderer({ root: 'body' }))

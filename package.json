@@ -7,15 +7,15 @@
   "bugs": "https://github.com/rill-js/page/issues",
   "dependencies": {
     "combine-streams": "^1.0.0",
-    "set-head": "^1.2.0"
+    "set-head": "^2.0.0"
   },
   "devDependencies": {
-    "jsdom": "^11.1.0",
+    "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^3.5.0",
-    "rill": "^5.0.14",
+    "rill": "^5.0.15",
     "snazzy": "^7.0.0",
-    "standard": "^10.0.2",
+    "standard": "^10.0.3",
     "supertest": "^3.0.0"
   },
   "homepage": "https://github.com/rill-js/page",

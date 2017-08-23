@@ -24,8 +24,14 @@ Head.TAGS.forEach(function (tag) {
         return next().then(function () {
           var contentType = res.get('Content-Type')
           if (!contentType || contentType.slice(0, 9) !== 'text/html') return
+          var parts = page.renderToString()
           res.body = combineStreams()
-            .append('<!DOCTYPE html><html><head>' + page.renderToString() + '</head><body>')
+            .append(
+              '<!DOCTYPE html>' +
+              '<html' + parts.htmlAttributes + '>' +
+              '<head>' + parts.head + '</head>' +
+              '<body' + parts.bodyAttributes + '>'
+            )
             .append(res.body)
             .append('</body></html>')
             .append(null)
