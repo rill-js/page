@@ -28,7 +28,7 @@
 </h1>
 
 Full page <head> management for [Rill](https://github.com/rill-js/rill).
-Updating the head element is done using the [set-head](https://github.com/DylanPiercey/set-head) library, with the same api (excluding render).
+Updating the document is done using the [set-page](https://github.com/DylanPiercey/set-page) library, with the same api (excluding render).
 
 # Installation
 

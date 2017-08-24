@@ -7,7 +7,7 @@
   "bugs": "https://github.com/rill-js/page/issues",
   "dependencies": {
     "combine-streams": "^1.0.0",
-    "set-head": "^2.0.0"
+    "set-page": "^3.0.0"
   },
   "devDependencies": {
     "jsdom": "^11.2.0",

@@ -1,16 +1,16 @@
 'use strict'
 
-var Head = require('set-head/src/browser')
+var Page = require('set-page/src/browser')
 
 // Add middleware for each type of tag.
-Head.TAGS.forEach(function (tag) {
+Page.TAGS.forEach(function (tag) {
   exports[tag] = function (attrs) {
     // If we are on the first call then we start a chainable middleware.
     if (this === exports) {
       var tagMiddleware = function (ctx, next) {
         var res = ctx.res
         var first = !ctx.page
-        var page = ctx.page = ctx.page || new Head()
+        var page = ctx.page = ctx.page || new Page()
         var calls = tagMiddleware._calls
 
         for (var i = 0, len = calls.length, method, args; i < len; i += 2) {
